@@ -10,7 +10,7 @@ class Controller
 
     protected function redirect($url)
     {
-        header("Location: /todo-mvc-chatbot/public/$url");
+        header("Location: /TOnotDO/public/$url");
         exit;
     }
 }

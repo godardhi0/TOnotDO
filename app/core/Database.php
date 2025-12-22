@@ -8,7 +8,7 @@ class Database
     private function __construct()
     {
         $this->pdo = new PDO(
-            "mysql:host=localhost;dbname=todo_app;charset=utf8",
+            "mysql:host=localhost;dbname=tonotdo_app;charset=utf8",
             "root",
             "",
             [

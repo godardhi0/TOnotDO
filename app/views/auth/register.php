@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+</head>
+<body>
+
+<h2>Register</h2>
+
+<form method="POST">
+    <input type="text" name="username" placeholder="Username" required><br>
+    <input type="email" name="email" placeholder="Email" required><br>
+    <input type="password" name="password" placeholder="Password" required><br>
+
+    <select name="role">
+        <option value="client">Client</option>
+        <option value="worker">Worker</option>
+        <option value="root">Root</option>
+    </select><br>
+
+    <button type="submit">Register</button>
+</form>
+
+<a href="/TOnotDO/public/auth/login">Login</a>
+
+</body>
+</html>

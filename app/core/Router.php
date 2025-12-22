@@ -13,14 +13,14 @@ class Router
         $controllerFile = "../app/controllers/$controllerName.php";
 
         if (!file_exists($controllerFile)) {
-            die("Controller not found");
+            die("Controller not found: $controllerName");
         }
 
         require_once $controllerFile;
         $controller = new $controllerName();
 
         if (!method_exists($controller, $method)) {
-            die("Method not found");
+            die("Method not found: $method");
         }
 
         call_user_func_array([$controller, $method], $params);
