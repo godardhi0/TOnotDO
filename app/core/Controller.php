@@ -2,15 +2,23 @@
 
 class Controller
 {
-    protected function view($view, $data = [])
+    public function view($view, $data = [])
     {
         extract($data);
-        require_once "../app/views/$view.php";
+        $viewFile = __DIR__ . '/../views/' . $view . '.php';
+
+        if (!file_exists($viewFile)) {
+            die("View not found: $viewFile");
+        }
+
+        require __DIR__ . '/../views/layouts/main.php';
     }
 
-    protected function redirect($url)
+    // Add this method
+    public function redirect($path)
     {
-        header("Location: /TOnotDO/public/$url");
+        // Full URL path assuming your app is at /TOnotDO/public
+        header("Location: /TOnotDO/public/$path");
         exit;
     }
 }

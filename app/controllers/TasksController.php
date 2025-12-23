@@ -1,6 +1,5 @@
 <?php
 require_once ROOT . '/app/models/Task.php';
-
 class TasksController extends Controller
 {
     public function myRequests()
@@ -35,20 +34,23 @@ class TasksController extends Controller
 
     public function create()
     {
-        Auth::role('client');
+        // Allow both client and root
+        Auth::role(['client', 'root']); 
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $taskModel = new Task();
             $taskModel->create([
                 'title' => $_POST['title'],
                 'description' => $_POST['description'],
-                'client_id' => Auth::user()['id']
+                'client_id' => Auth::user()['id'] ?? null // or assign a client if root
             ]);
-            $this->redirect('tasks/myRequests');
+
+            $this->redirect('tasks/myRequests'); // or tasks/manage for root
         }
 
         $this->view('tasks/create');
     }
+
 
     public function delete($id)
     {
@@ -83,6 +85,11 @@ class TasksController extends Controller
         $taskModel = new Task();
         $taskModel->update($id, $_POST);
 
+        $this->notifyNode([
+            'type' => 'taskUpdate',
+            'task_id' => $id
+        ]);
+
         $this->redirect('tasks/manage');
     }
 
@@ -93,7 +100,23 @@ class TasksController extends Controller
         $taskModel = new Task();
         $taskModel->updateStatus($id, 'done');
 
+        $this->notifyNode([
+            'type' => 'taskUpdate',
+            'task_id' => $id
+        ]);
+
         $this->redirect('tasks/myTasks');
+    }
+
+    private function notifyNode($data)
+    {
+        $ch = curl_init("http://localhost:3000");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_exec($ch);
+        curl_close($ch);
     }
 
 }
