@@ -1,0 +1,106 @@
+/* Chat bubble, panel and header styles */
+.site-header{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:12px 20px;
+    background:transparent
+}
+.site-logo{
+    height:36px;
+    display:block
+}
+
+/* Floating chat bubble */
+.chat-bubble{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:#2d9cdb;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 6px 18px rgba(0,0,0,0.12);
+    text-decoration:none;
+    font-size:22px;z-index:1000;
+    border:none;cursor:pointer
+}
+.chat-bubble:hover{
+    transform:translateY(-4px);
+    transition:all .12s ease
+}
+.chat-bubble:active{
+    transform:translateY(0)
+}
+
+/* Chat panel */
+.chat-panel{
+    display:none;
+    position:fixed;
+    right:20px;
+    bottom:88px;
+    width:340px;
+    max-width:92vw;
+    height:420px;
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 12px 32px rgba(0,0,0,0.16);
+    overflow:hidden;
+    z-index:1001;
+    flex-direction:column
+}
+.chat-panel.open{
+    display:flex
+}
+.chat-panel__header{
+    padding:12px 14px;
+    background:#f7fbff;
+    border-bottom:1px solid #eef6ff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between
+}
+.chat-panel__header strong{
+    font-size:15px
+}
+.chat-panel__close{
+    background:none;
+    border:none;
+    font-size:18px;
+    cursor:pointer
+}
+.chat-panel__messages{
+    flex:1;
+    overflow-y:auto;
+    padding:10px;
+    background:#fff
+}
+.chat-panel__input{
+    padding:10px;
+    border:1px solid #e7eef8;
+    border-radius:8px;
+    font-size:14px;
+    flex:1
+}
+.chat-panel__input-area{
+    padding:10px;
+    border-top:1px solid #f0f0f0;
+    background:#fafafa;
+    display:flex;
+    gap:8px
+}
+.chat-panel__send{
+    padding:10px 12px;
+    background:#2d9cdb;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    font-weight:700;
+    cursor:pointer
+}
+
+@media(max-width:420px){.chat-bubble{right:12px;bottom:12px;width:48px;height:48px;font-size:20px}.site-logo{height:30px}}

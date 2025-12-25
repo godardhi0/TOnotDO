@@ -7,6 +7,7 @@ class Auth
         return isset($_SESSION['user']);
     }
 
+    // Ensure user is logged in, otherwise redirect to login
     public static function requireLogin()
     {
         if (!self::check()) {
@@ -22,10 +23,14 @@ class Auth
 
     public static function role($role)
     {
+        // Ensure user is logged in
         self::requireLogin();
 
-        if ($_SESSION['user']['role'] !== $role) {
-            die("Access denied");
+        // If role is an array, check if user's role is in the array
+        $allowedRoles = is_array($role) ? $role : [$role];
+        
+        if (!in_array($_SESSION['user']['role'], $allowedRoles)) {
+            die("accès refusé");
         }
     }
 }

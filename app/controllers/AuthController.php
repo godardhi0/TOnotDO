@@ -6,14 +6,18 @@ class AuthController extends Controller
     public function login()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            
             $userModel = new User();
+            
             $user = $userModel->findByEmail($_POST['email']);
 
             if ($user && password_verify($_POST['password'], $user['password'])) {
                 $_SESSION['user'] = $user;
+
+                // login successful, redirect to profile
                 $this->redirect('profile/show');
             } else {
-                $error = "Invalid credentials";
+                $error = "Mot de passe ou adresse e-mail invalides";
             }
         }
 

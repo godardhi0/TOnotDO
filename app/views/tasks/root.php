@@ -1,6 +1,8 @@
 
 <h2>All Tasks</h2>
 
+<a href="/TOnotDO/public/tasks/create">Create Task</a>
+
 <ul>
 <?php foreach ($tasks as $task): ?>
     <li>

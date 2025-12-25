@@ -1,6 +1,18 @@
+// import required modules
+    // CommonJS module: require()
+
+// express for server framework : 
 const express = require("express");
+// http for creating server : 
+    //The http module in Node.js allows you to create an HTTP server that can listen for and respond to HTTP requests.
 const http = require("http");
+
+// socket.io for real-time communication :
+    //Socket.IO is a library that enables real-time, bidirectional and event-based communication between web clients and servers.
 const { Server } = require("socket.io");
+
+//CORS for cross-origin requests
+    //CORS (Cross-Origin Resource Sharing) is a security feature implemented by web browsers to restrict web pages from making requests to a different domain than the one that served the web page.
 const cors = require("cors");
 
 const app = express();
@@ -16,10 +28,11 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-    console.log("🔥 Browser connected:", socket.id);
+    console.log("Le navigateur est connecté:", socket.id);
 
     // Chat messages
     socket.on("chatMessage", msg => {
+
         let reply = "Sorry, I did not understand.";
 
         const text = msg.text.toLowerCase();
@@ -49,10 +62,10 @@ io.on("connection", (socket) => {
     });
 
     socket.on("disconnect", () => {
-        console.log("❌ Browser disconnected:", socket.id);
+        console.log("Navigateur deconnecté:", socket.id);
     });
 });
 
 server.listen(3000, () => {
-    console.log("✅ Node.js server running on port 3000");
+    console.log("Le serveur Node.js écoute sur le port 3000");
 });

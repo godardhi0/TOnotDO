@@ -1,14 +1,17 @@
 <?php
 require_once ROOT . '/app/models/Task.php';
+require_once ROOT . '/app/models/User.php';
 class TasksController extends Controller
 {
     public function myRequests()
     {
+        // Only clients can access their demands 
         Auth::role('client');
 
         $taskModel = new Task();
         $tasks = $taskModel->getByClient(Auth::user()['id']);
 
+        // Render the view with tasks
         $this->view('tasks/client', ['tasks' => $tasks]);
     }
 
@@ -34,21 +37,46 @@ class TasksController extends Controller
 
     public function create()
     {
-        // Allow both client and root
-        Auth::role(['client', 'root']); 
+        Auth::role(['client', 'root']);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $taskModel = new Task();
+
+            // Determine client_id: if root provided a client selection, use it,
+            // otherwise use the current user's id (for clients)
+            $clientId = null;
+            $currentUser = Auth::user();
+            if (isset($currentUser['role']) && $currentUser['role'] === 'root' && !empty($_POST['client_id'])) {
+                $clientId = (int) $_POST['client_id'];
+            } else {
+                $clientId = $currentUser['id'] ?? null;
+            }
+
             $taskModel->create([
                 'title' => $_POST['title'],
                 'description' => $_POST['description'],
-                'client_id' => Auth::user()['id'] ?? null // or assign a client if root
+                'client_id' => $clientId
             ]);
 
-            $this->redirect('tasks/myRequests'); // or tasks/manage for root
+            // Redirect depending on role
+            if (isset($currentUser['role']) && $currentUser['role'] === 'root') {
+                $this->redirect('tasks/manage');
+            } else {
+                $this->redirect('tasks/myRequests');
+            }
         }
 
-        $this->view('tasks/create');
+        // If the current user is root, pass the list of clients to the view
+        $currentUser = Auth::user();
+        if (isset($currentUser['role']) && $currentUser['role'] === 'root') {
+            $userModel = new User();
+            // Use User model to fetch clients by role
+            $clients = $userModel->findByRole('client');
+
+            $this->view('tasks/create', ['clients' => $clients]);
+        } else {
+            $this->view('tasks/create');
+        }
     }
 
 

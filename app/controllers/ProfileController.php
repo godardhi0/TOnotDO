@@ -1,5 +1,4 @@
 <?php
-
 require_once ROOT . '/app/models/User.php';
 
 class ProfileController extends Controller

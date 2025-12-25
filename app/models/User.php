@@ -24,6 +24,13 @@ class User
         ]);
     }
 
+    public function findbyRole($role)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE role = ?");
+        $stmt->execute([$role]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function findByEmail($email)
     {
         $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
