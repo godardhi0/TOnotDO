@@ -12,14 +12,15 @@ class Task
     public function create($data)
     {
         $stmt = $this->db->prepare("
-            INSERT INTO tasks (title, description, client_id)
-            VALUES (:title, :description, :client_id)
+            INSERT INTO tasks (title, description, client_id, worker_id)
+            VALUES (:title, :description, :client_id, :worker_id)
         ");
 
         return $stmt->execute([
             'title'       => $data['title'],
             'description' => $data['description'],
-            'client_id'   => $data['client_id']
+            'client_id'   => $data['client_id'],
+            'worker_id'   => isset($data['worker_id']) && $data['worker_id'] !== '' ? $data['worker_id'] : null
         ]);
     }
 

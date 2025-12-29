@@ -17,7 +17,7 @@ $fullViewPath = $viewFile; // from Controller.php
 
 <!-- Site header with logo -->
 <header class="site-header">
-    <a href="/TOnotDO/public/"><img src="/TOnotDO/public/img/logo0.svg" alt="TOnotDO" class="site-logo"></a>
+    <a href="#" onclick="location.reload(); return false;"><img src="/TOnotDO/public/img/logo0.svg" alt="TOnotDO" class="site-logo" style="width: 80px; height: auto;"></a>
 </header>
 
 <!-- Socket.IO scripts (initialized before views so view scripts can use `socket`) -->

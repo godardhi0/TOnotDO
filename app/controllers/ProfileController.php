@@ -1,12 +1,36 @@
 <?php
 require_once ROOT . '/app/models/User.php';
+require_once ROOT . '/app/controllers/TasksController.php';
 
 class ProfileController extends Controller
 {
+    private $Tasks;
+
+    public function __construct()
+    {
+        $this->Tasks = new TasksController();
+    }
+    
     public function show()
     {
         Auth::requireLogin();
-        $this->view('profile/show', ['user' => Auth::user()]);
+        // ensure $tasks is defined for all roles to avoid undefined variable warnings
+        $tasks = [];
+
+        if(Auth::user()['role'] === 'client'){
+            $tasks = $this->Tasks->myRequests();
+        } elseif (Auth::user()['role'] === 'root'){
+            $tasks = $this->Tasks->manage();
+            // Load workers so the root create-task form can list assignable workers
+            $userModel = new User();
+            $workers = $userModel->findbyRole_('worker');
+        } elseif (Auth::user()['role'] === 'worker') {
+            // Provide the worker's tasks to the profile view
+            $tasks = $this->Tasks->myTasksList();
+        }
+        $viewData = ['tasks' => $tasks, 'user' => Auth::user()];
+        if (isset($workers)) $viewData['workers'] = $workers;
+        $this->view('profile/show', $viewData);
     }
 
     public function edit()

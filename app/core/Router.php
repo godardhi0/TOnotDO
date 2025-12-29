@@ -25,7 +25,6 @@ class Router
         if (!method_exists($controller, $method)) {
             die("Méthode introuvable: $method");
         }
-
         call_user_func_array([$controller, $method], $params);
     }
 }

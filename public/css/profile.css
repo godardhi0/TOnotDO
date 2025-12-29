@@ -32,7 +32,7 @@
 }
 
 /* Profile info card */
-.profile-card {
+.profile-card,.request-card {
     background:#fff;
     border-radius:10px;
     box-shadow:0 4px 12px rgba(0,0,0,0.08);
@@ -41,15 +41,14 @@
 }
 
 /* Hidden state for profile card; toggled by JS */
-.profile-card.hidden{
+.profile-card.hidden, .request-card.hidden {
     display:none;
 }
-
-.profile-card__section {
+.profile-card__section, .request-card__section {
     padding:12px 0;
 }
 
-.profile-card__heading {
+.profile-card__heading, .request-card__heading {
     margin:0 0 16px;
     font-size:18px;
     color:#222;
@@ -57,13 +56,13 @@
 }
 
 /* Profile info rows */
-.profile-info {
+.profile-info, .request-info {
     display:flex;
     flex-direction:column;
     gap:12px;
 }
 
-.profile-info__row {
+.profile-info__row, .request-info__row {
     display:flex;
     align-items:center;
     gap:12px;
@@ -177,6 +176,14 @@
     padding:12px;
 }
 
+/* When dropdown is placed inside the hero, position it to the right and center vertically */
+.profile-hero .action-dropdown {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 .dropdown-toggle {
     width:100%;
     padding:12px 16px;
@@ -208,6 +215,18 @@
     box-shadow:0 6px 20px rgba(0,0,0,0.12);
     z-index:100;
     overflow:hidden;
+}
+
+/* Improve scrollbar appearance for long lists */
+.profile-card#mes-demandes-panel .profile-info::-webkit-scrollbar {
+    width: 10px;
+}
+.profile-card#mes-demandes-panel .profile-info::-webkit-scrollbar-thumb {
+    background: rgba(45,156,219,0.25);
+    border-radius: 10px;
+}
+.profile-card#mes-demandes-panel .profile-info::-webkit-scrollbar-track {
+    background: transparent;
 }
 
 .dropdown-menu.open {
@@ -243,6 +262,42 @@
     color:#a00;
 }
 
+/* Task card item styling for Mes demandes */
+.task-card-item {
+    border: 1px solid #e6e9ef;
+    border-radius: 8px;
+    padding: 18px;
+    margin-bottom: 14px;
+    background: #fafafa;
+    transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+.task-card-item:hover {
+    box-shadow: 0 8px 24px rgba(16,24,40,0.06);
+    transform: translateY(-4px);
+}
+.task-card-item h3 { margin:0; }
+.task-card-item .tasks-item-meta { color:#666; font-size:13px; margin-bottom:12px; }
+
+/* Make the mes-demandes list scrollable */
+.profile-card#mes-demandes-panel .profile-info {
+    max-height: 420px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+/* Modal styles for edit form */
+.modal-overlay { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.45); z-index: 1200; }
+.modal-overlay.open { display: flex; }
+.modal-content { background: #fff; border-radius: 10px; width: 680px; max-width: 92%; padding: 20px; box-shadow: 0 10px 40px rgba(16,24,40,0.2); }
+.modal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.modal-header h2 { margin:0; font-size:18px; }
+.modal-close { background:none; border:none; font-size:20px; cursor:pointer; }
+.modal-actions { display:flex; gap:8px; justify-content:flex-end; margin-top:14px; }
+
+@media(max-width:520px) {
+    .modal-content { width: 96%; padding: 16px; }
+}
+
 @media(max-width:520px) {
     .profile-wrapper {
         padding:12px;
@@ -260,7 +315,9 @@
         font-size:14px;
     }
 
-    .profile-card, .action-primary, .action-dropdown {
+    .profile-card, .request-card, .action-primary, .action-dropdown {
         padding:16px;
     }
 }
+
+
