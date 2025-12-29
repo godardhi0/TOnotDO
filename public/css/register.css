@@ -1,0 +1,88 @@
+/*Register Page Styles */
+html,body{
+    height:100%;
+    background:#f5f7fa;
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:16px;
+}
+.auth-wrap{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:64vh;
+    padding:28px;
+}
+.auth-card{
+    width:420px;
+    padding:32px;
+    border-radius:10px;
+    box-shadow:0 8px 28px rgba(0,0,0,0.10);
+    background:#fff;
+}
+.auth-card h2{
+    margin:0 0 14px;
+    font-size:24px;
+    color:#222;
+}
+.auth-card .error{
+    color:#c0392b;
+    margin-bottom:14px;
+    font-size:15px;
+}
+.auth-card input[type="email"],.auth-card input[type="password"], .auth-card input[type="text"]{
+    width:100%;
+    padding:14px 14px;
+    margin-bottom:12px;
+    border:1px solid #e0e6ef;
+    border-radius:6px;
+    box-sizing:border-box;
+    font-size:16px;
+}
+.auth-card button{
+    width:100%;
+    padding:12px 14px;
+    background:#2d9cdb;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:700;
+    font-size:16px;
+}
+.auth-card .muted{
+    display:block;
+    text-align:center;
+    margin-top:14px;
+    color:#666;
+    font-size:15px;
+}
+.auth-card a.small{
+    color:#2d9cdb;
+    text-decoration:none;
+    font-weight:700;
+}
+.sr-only{
+    position:absolute!important;
+    height:1px;
+    width:1px;
+    overflow:hidden;
+    clip:rect(1px,1px,1px,1px);
+    white-space:nowrap;
+}
+
+.role {
+    width: 100%;
+    padding: 14px 14px;
+    margin-bottom: 12px;
+    border: 1px solid #e0e6ef;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+@media (max-width:520px){
+    .auth-card{width:92%;padding:20px}
+    .auth-card h2{font-size:20px}
+    .auth-card input[type="email"],.auth-card input[type="password"]{padding:12px;font-size:15px}
+    .auth-card button{font-size:15px}
+}
